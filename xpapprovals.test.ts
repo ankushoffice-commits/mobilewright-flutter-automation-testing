@@ -18,13 +18,15 @@ test.beforeAll('Grant permissions and notifications', async () => {
 
 
 test('app launches and shows home screen', async ({ screen, device }) => {
-  await expect(screen.getByText('Skip')).toBeVisible({ timeout: 20_000 });
+  await expect(screen.getByTestId('next_button')).toBeVisible({ timeout: 20_000 });
 });
 
-test.only('try to sign up into the app', async ({ screen, device }) => {
+test('try to sign up into the app', async ({ screen, device }) => {
     
 //   await expect(await screen.getByText('Skip')).toBeVisible({ timeout: 20_000 });
-  await screen.getByText('Skip').tap({timeout: 20_000})
+  await screen.getByTestId('next_button').tap({timeout: 20_000})
+  await screen.getByTestId('next_button').tap()
+  await screen.getByTestId('get_started_button').tap()
 
   await screen.getByTestId('signup_username_textfield').fill(data.user_name)
   await screen.getByTestId('signup_password_textfield').fill(data.password)
@@ -54,14 +56,14 @@ test('try to text search into the app', async ({ screen, device }) => {
   // 7. Check whether user is able to send text in app search field
   await screen.getByTestId('app_search_text_field').fill('Automation1')
 
-  expect(await screen.getByTestId('approval_list_card')).toContainText('Automation1')
+  await expect(screen.getByTestId('approval_list_card')).toContainText('Automation1')
 
-  expect(screen.getByTestId('app_search_text_field')).not.toBeEmpty()
+  await expect(screen.getByTestId('app_search_text_field')).not.toBeEmpty()
 
 
 });
 
-test.only('get text while scrolling', async ({ screen, device }) => {
+test('get text while scrolling', async ({ screen, device }) => {
 
     const doc
     = new Set<string>();
@@ -72,15 +74,15 @@ test.only('get text while scrolling', async ({ screen, device }) => {
 
         const elements = await screen.getByTestId('approval_list_card_document_value').all()
 
-        elements.forEach(async (element) => {
+        await Promise.all(elements.map(async (element) => {
             const text = await element.getText() ?? '';
             doc.add(text);
-        });
+        }));
     }
 
-    doc.forEach(text => {
+    await Promise.all([...doc].map(async (text) => {
         console.log(text);
-    });
+    }));
 });
 
 test('scroll to the bottom of the list', async ({ screen, device }) => {
@@ -102,7 +104,7 @@ test('scroll to the bottom of the list', async ({ screen, device }) => {
   // console.log('Days count at the top:', daysCountFirstNum)
   // console.log('Days count at the bottom:', daysCountLastNum)
 
-  expect(daysCountFirstNum).toBeGreaterThanOrEqual(daysCountLastNum)
+  await expect(daysCountFirstNum).toBeGreaterThanOrEqual(daysCountLastNum)
 
 });
 
