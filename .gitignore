@@ -1,0 +1,11 @@
+.idea
+.agents
+.vscode
+node_modules
+.env
+testdata
+*.png
+*.jpg
+*.jpeg
+*.xml
+example.test.ts

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "mobilewright": {
+      "source": "mobile-next/mobilewright-skill",
+      "sourceType": "github",
+      "skillPath": "skills/mobilewright/SKILL.md",
+      "computedHash": "e975f5f18e592f8d02df1c21b1d14ffd29b48d8e2fb41c3e01340e168b765265"
+    }
+  }
+}
