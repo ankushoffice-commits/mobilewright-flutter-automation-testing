@@ -9,3 +9,4 @@ testdata
 *.jpeg
 *.xml
 example.test.ts
+Apps/*.apk
