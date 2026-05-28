@@ -16,4 +16,5 @@ export default defineConfig({
 
   retries: 0,
 
+  // globalTeardown: './global-teardown.ts',
 });
